@@ -8,8 +8,6 @@ namespace GameHub.Controllers
 
             internal static readonly List<LoginData> SavedAccounts = new List<LoginData>();
             internal static LoginData? LoggedAccount { get; set; }
-            private static CultureInfo culture = CultureInfo.CreateSpecificCulture("pt-BR");
-            private static NumberStyles style = NumberStyles.AllowDecimalPoint;
 
         public static void InitiateMenu()
         {

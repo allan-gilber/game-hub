@@ -1,4 +1,5 @@
 ﻿using GameHub.Models;
+using static System.Console;
 
 namespace GameHub.Controllers
 {
@@ -38,10 +39,9 @@ namespace GameHub.Controllers
 
         public static void MainMenu()
         {
-
             while (InternalMenuLoopControler)
             {
-                ConsolePrinterController.WriteInternalMenu();
+                ConsolePrinterController.WriteInternalMainMenu();
                 string? userInput = Console.ReadLine();
                 int choosedOption;
                 if (!Int32.TryParse(userInput, out choosedOption)) { ConsolePrinterController.WriteInvalidOptionMessage(); continue; }
@@ -54,8 +54,21 @@ namespace GameHub.Controllers
                     case 1:
                         LoginController.DeleteAccount();
                         break;
+                    case 2:
+                        WriteLine("Play Tic-Tac-Toe");
+                        ReadKey();
+                        break;
+                    case 3:
+                        WriteLine("Play another game");
+                        ReadKey();
+                        break;
+                    case 4:
+                        WriteLine("Global Scoreboard");
+                        ReadKey();
+                        break;
                     default:
                         ConsolePrinterController.WriteInvalidOptionMessage();
+                        ReadKey();
                         break;
                 }
             }

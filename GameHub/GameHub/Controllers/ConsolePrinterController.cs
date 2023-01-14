@@ -27,16 +27,13 @@ namespace GameHub.Controllers
         }
 
 
-        public static void WriteInternalMenu()
+        public static void WriteInternalMainMenu()
         {
             Clear();
-            WriteLine("1 - Delete account");
-            WriteLine("2 - List all account data");
-            WriteLine("3 - Account details");
-            WriteLine("4 - Balance");
-            WriteLine("5 - Withdrawn");
-            WriteLine("6 - Deposit");
-            WriteLine("7 - Transfer");
+            WriteLine("1 - Play Chess");
+            WriteLine("2 - Play Tic-Tac-Toe");
+            WriteLine("3 - Play Another Game");
+            WriteLine("4 - See Global Scoreboard");
             WriteLine("0 - Logout");
             Write("Type your option: ");
         }
@@ -65,7 +62,5 @@ namespace GameHub.Controllers
         {
             Console.WriteLine("Account successfully created! {0}", ReturnToLoginMenuMessage);
         }
-
-
     }
 }
