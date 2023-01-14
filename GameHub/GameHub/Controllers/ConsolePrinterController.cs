@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using System;
+using static System.Console;
 
 namespace GameHub.Controllers
 {
@@ -14,7 +15,7 @@ namespace GameHub.Controllers
 
         public static void WriteMessage(string Message)
         {
-            Console.WriteLine(Message);
+            WriteLine(Message);
         }
 
         public static void WriteLoginMenu()
@@ -40,12 +41,12 @@ namespace GameHub.Controllers
 
         public static void WriteInvalidLogin()
         {
-            Console.WriteLine("Invalid login!\n{0}", ReturnToLoginMenuMessage);
+            WriteLine("Invalid login!\n{0}", ReturnToLoginMenuMessage);
         }
 
         public static void WriteAccountAlreadyExists()
         {
-            Console.WriteLine("Account login already exists! {0}", ReturnToLoginMenuMessage);
+            WriteLine("Account login already exists! {0}", ReturnToLoginMenuMessage);
         }
 
         public static void WriteInvalidPassword()
@@ -58,9 +59,37 @@ namespace GameHub.Controllers
             Console.WriteLine("Invalid name!\n{0}", ReturnToLoginMenuMessage);
         }
 
+        public static void WriteInvalidAccount() {
+            Console.WriteLine("invalid/null account");
+        }
+
+        public static void WriteAccountNotFound()
+        {
+            WriteLine("Account not found");
+        }
+
+
         public static void WriteAccountCreationSuccesful()
         {
-            Console.WriteLine("Account successfully created! {0}", ReturnToLoginMenuMessage);
+            WriteLine("Account successfully created! {0}", ReturnToLoginMenuMessage);
+        }
+
+        public static void WriteInsertSecondPlayerAccount()
+        {
+            WriteLine("Insert second player account: ");
+        }
+
+        // Specific Chess Game Messages
+
+        public static void WriteChessWelcomeMessage()
+        {
+            WriteLine("Welcome to C# Chess 1.0!");
+            WriteLine("Hope you have a good fun.");
+        }
+        public static void WriteGameplayersNames(string firstPlayerName, string secondPlayerName) {
+            WriteLine("The match will be:\n{0} (white) vs {1} (black)", firstPlayerName, secondPlayerName);
+            WriteLine("Lets begin the match!");
+            ReadKey();
         }
     }
 }
