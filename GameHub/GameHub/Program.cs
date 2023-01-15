@@ -2,12 +2,15 @@
 using System;
 using System.Globalization;
 
-public class ByteBank
+namespace GameHub
 {
-
-    public static void Main(string[] args)
+    public class GameHub
     {
-        GameHubController.InitiateMenu();
-        Console.Write("The application has been successfully terminated");
+
+        public static void Main(string[] args)
+        {
+            GameHubController.InitiateMenu();
+            Console.Write("The application has been successfully terminated");
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace GameHub.Views
 {
     public static class ChessBoardViewer
     {
-        public static void PrintBoardActualStatus(int NumberOfRows, int NumberOfColumns, int[] firstPiecesArray, int[] secondPiecesArray)
+        public static void PrintBoardActualStatus(int NumberOfRows, int NumberOfColumns, int[,] firstPiecesArray, int[,] secondPiecesArray)
         {
             int QuantityOfRowsController = 0;
             Clear();

@@ -91,5 +91,16 @@ namespace GameHub.Controllers
             WriteLine("Lets begin the match!");
             ReadKey();
         }
+
+        public static void WriteChooseYourMoveMessage(string PlayerColor)
+        {
+            Console.WriteLine("{0} pieces round. Type the piece you want to move. Type the letter and the number of the square she is:", PlayerColor);
+        }
+
+        public static void WriteWrongPiecePosition()
+        {
+            WriteLine("Wrong piece position! Please, type the correct position of the piece you want to move. Ex: 'C2'");
+            ReadKey();
+        }
     }
 }
