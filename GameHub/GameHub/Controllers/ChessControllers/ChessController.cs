@@ -23,7 +23,7 @@ namespace GameHub.Controllers.ChessControllers
             Clear();
             WriteChessWelcomeMessage();
             ReadKey();
-           // ChooseYourOpponent();
+            // ChooseYourOpponent();
             PopulateChessBoard();
             Clear();
             for (int i = 0; i < BlackPiecesPositions.GetLength(0); i++)
@@ -35,6 +35,16 @@ namespace GameHub.Controllers.ChessControllers
                 Console.WriteLine();
             }
 
+            for (int i = 0; i < WhitePiecesPositions.GetLength(0); i++)
+            {
+                for (int j = 0; j < WhitePiecesPositions.GetLength(1); j++)
+                {
+                    Console.Write(WhitePiecesPositions[i, j] + "\t");
+                }
+                Console.WriteLine();
+            }
+
+            WriteLine("test: " + ChessBoardViewer.ConvertPieceNumberToUnicodeSymbol(1));
             ReadKey();
 
             while (_ShouldContinue) { 
@@ -115,30 +125,26 @@ namespace GameHub.Controllers.ChessControllers
             
             // Bishops
             WhitePiecesPositions[2, 7] = 3;
-            WhitePiecesPositions[6, 7] = 3;
+            WhitePiecesPositions[5, 7] = 3;
             BlackPiecesPositions[2, 0] = 3;
-            BlackPiecesPositions[6, 0] = 3;
+            BlackPiecesPositions[5, 0] = 3;
             
             // Knights
             WhitePiecesPositions[1, 7] = 4;
-            WhitePiecesPositions[7, 7] = 4;
+            WhitePiecesPositions[6, 7] = 4;
             BlackPiecesPositions[1, 0] = 4;
-            BlackPiecesPositions[7, 0] = 4;
+            BlackPiecesPositions[6, 0] = 4;
 
             // Rooks
             WhitePiecesPositions[0, 7] = 5;
             WhitePiecesPositions[7, 7] = 5;
-            BlackPiecesPositions[7, 0] = 5;
             BlackPiecesPositions[0, 0] = 5;
+            BlackPiecesPositions[7, 0] = 5;
 
             // Pawns
             for(int i = 0; i < 8; i++)
             {
                 WhitePiecesPositions[i, 6] = 6;
-            }
-
-            for (int i = 0; i < 8; i++)
-            {
                 BlackPiecesPositions[i, 1] = 6;
             }
         }
