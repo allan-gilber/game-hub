@@ -43,12 +43,13 @@ namespace GameHub.Views
 
         private static string CheckIfSquareHasPieceOnIt(int columnIndex, int rowNumber,int[,] firstPiecesArray, int[,] secondPiecesArray)
         {
+            if (firstPiecesArray[rowNumber, columnIndex] == secondPiecesArray[rowNumber, columnIndex] && (firstPiecesArray[rowNumber, columnIndex] != 0 && secondPiecesArray[rowNumber, columnIndex] != 0)) return ConvertPieceNumberToUnicodeSymbol(null);
             if (firstPiecesArray[rowNumber, columnIndex] != 0) return ConvertPieceNumberToUnicodeSymbol(firstPiecesArray[rowNumber, columnIndex]);
             if (secondPiecesArray[rowNumber, columnIndex] != 0) { ForegroundColor = ConsoleColor.Red; return ConvertPieceNumberToUnicodeSymbol(secondPiecesArray[rowNumber, columnIndex]); }
             return ConvertPieceNumberToUnicodeSymbol(0);
         }
 
-        public static string ConvertPieceNumberToUnicodeSymbol(int symbolNumber)
+        public static string ConvertPieceNumberToUnicodeSymbol(int? symbolNumber)
         {
             switch (symbolNumber)
             {
@@ -78,7 +79,7 @@ namespace GameHub.Views
                 case 7:
                     // return "\u2654";                
                     return "  ";
-                default: return "ERROR";
+                default: return "??";
             }
         }
     }

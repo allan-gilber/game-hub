@@ -68,12 +68,12 @@ namespace GameHub.Controllers.ChessControllers
             if (userInput == null || userInput.Length != 2) { WriteWrongPiecePosition(); return false; }
 
             int positionNumber, convertedPositionLetter;
-            if(!int.TryParse(userInput[1].ToString(), out positionNumber)) { WriteWrongPiecePosition(); return false; };
+            if(!int.TryParse(userInput[1].ToString(), out positionNumber)) { WriteWrongPiecePosition(); return false; }
 
             if (ConvertLetterToPosition != null || 0 < positionNumber && positionNumber < 9) { WriteWrongPiecePosition(); return false; }
             if (ConvertLetterToPosition(userInput[0].ToString()) != null) { convertedPositionLetter = (int)ConvertLetterToPosition(userInput[0].ToString())!; }
             else { return false; }
-            if (PiecePositions[convertedPositionLetter, positionNumber] == 0) { WriteWrongPiecePosition();  return false; };
+            if (PiecePositions[convertedPositionLetter, positionNumber] == 0) { WriteWrongPiecePosition();  return false; }
 
             return true;
         }
@@ -116,36 +116,39 @@ namespace GameHub.Controllers.ChessControllers
         public static void PopulateChessBoard()
         {
             // King
-            WhitePiecesPositions[3, 7] = 1;
-            BlackPiecesPositions[3, 0] = 1;
+            WhitePiecesPositions[0, 4] = 1;
+            BlackPiecesPositions[7, 4] = 1;
 
             // Queen
-            WhitePiecesPositions[4, 7] = 2;
-            BlackPiecesPositions[4, 0] = 2;
+            WhitePiecesPositions[0, 3] = 2;
+            BlackPiecesPositions[7, 3] = 2;
             
             // Bishops
-            WhitePiecesPositions[2, 7] = 3;
-            WhitePiecesPositions[5, 7] = 3;
-            BlackPiecesPositions[2, 0] = 3;
-            BlackPiecesPositions[5, 0] = 3;
+            WhitePiecesPositions[0, 2] = 3;
+
+            WhitePiecesPositions[3, 5] = 3;
+            BlackPiecesPositions[3, 5] = 3;
+            //WhitePiecesPositions[0, 5] = 3;
+            //BlackPiecesPositions[7, 2] = 3;
+            BlackPiecesPositions[7, 5] = 3;
             
             // Knights
-            WhitePiecesPositions[1, 7] = 4;
-            WhitePiecesPositions[6, 7] = 4;
-            BlackPiecesPositions[1, 0] = 4;
-            BlackPiecesPositions[6, 0] = 4;
+            WhitePiecesPositions[0, 1] = 4;
+            WhitePiecesPositions[0, 6] = 4;
+            BlackPiecesPositions[7, 1] = 4;
+            BlackPiecesPositions[7, 6] = 4;
 
             // Rooks
+            WhitePiecesPositions[0, 0] = 5;
             WhitePiecesPositions[0, 7] = 5;
-            WhitePiecesPositions[7, 7] = 5;
-            BlackPiecesPositions[0, 0] = 5;
             BlackPiecesPositions[7, 0] = 5;
+            BlackPiecesPositions[7, 7] = 5;
 
             // Pawns
             for(int i = 0; i < 8; i++)
             {
-                WhitePiecesPositions[i, 6] = 6;
-                BlackPiecesPositions[i, 1] = 6;
+                WhitePiecesPositions[1, i] = 6;
+                BlackPiecesPositions[6, i] = 6;
             }
         }
     }
