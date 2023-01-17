@@ -33,19 +33,26 @@ namespace GameHub.Views
             ForegroundColor = ConsoleColor.White;
             for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++)
             {
+                if (columnIndex == 0) { Write("|");}
                 string squareFiller = CheckIfSquareHasPieceOnIt(columnIndex, rowNumber, firstPiecesArray, secondPiecesArray);
-                if (columnIndex == 0) { Write("| {0} |", squareFiller); ForegroundColor = ConsoleColor.White; continue; }
-                if (columnIndex == numberOfColumns - 1) { Write(" {0} |\n", squareFiller); ForegroundColor = ConsoleColor.White; continue; }
-                Write(" {0} |", squareFiller);
+                Write(" {0}", squareFiller);
                 ForegroundColor = ConsoleColor.White;
+                if (columnIndex == numberOfColumns - 1) { Write(" |\n"); continue; }
+                Write(" |");
             }
         }
 
         private static string CheckIfSquareHasPieceOnIt(int columnIndex, int rowNumber,int[,] firstPiecesArray, int[,] secondPiecesArray)
         {
-            if (firstPiecesArray[rowNumber, columnIndex] == secondPiecesArray[rowNumber, columnIndex] && (firstPiecesArray[rowNumber, columnIndex] != 0 && secondPiecesArray[rowNumber, columnIndex] != 0)) return ConvertPieceNumberToUnicodeSymbol(null);
+            if (
+                firstPiecesArray[rowNumber, columnIndex] == secondPiecesArray[rowNumber, columnIndex] && 
+                (firstPiecesArray[rowNumber, columnIndex] != 0 && secondPiecesArray[rowNumber, columnIndex] != 0)
+                ) return ConvertPieceNumberToUnicodeSymbol(null);
             if (firstPiecesArray[rowNumber, columnIndex] != 0) return ConvertPieceNumberToUnicodeSymbol(firstPiecesArray[rowNumber, columnIndex]);
-            if (secondPiecesArray[rowNumber, columnIndex] != 0) { ForegroundColor = ConsoleColor.Red; return ConvertPieceNumberToUnicodeSymbol(secondPiecesArray[rowNumber, columnIndex]); }
+            if (secondPiecesArray[rowNumber, columnIndex] != 0) { 
+                ForegroundColor = ConsoleColor.Red; 
+                return ConvertPieceNumberToUnicodeSymbol(secondPiecesArray[rowNumber, columnIndex]); 
+            }
             return ConvertPieceNumberToUnicodeSymbol(0);
         }
 
