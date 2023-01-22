@@ -7,7 +7,7 @@ namespace GameHub.Controllers
     {
         public static string InvalidLoginMessage { get; } = "Failed to login: incorrect login and/or password.";
         public static string ReturnToMainMenuMessage { get; } = "Returning to main menu...";
-        public static string ReturnToLoginMenuMessage { get; } = "Returning to login menu...";
+        private static string _ReturnToLoginMenuMessage { get; } = "Returning to login menu...";
 
         public static void WriteInvalidOptionMessage() { 
             WriteLine("Invalid option. Please type a valid number from the menu below:"); 
@@ -41,22 +41,22 @@ namespace GameHub.Controllers
 
         public static void WriteInvalidLogin()
         {
-            WriteLine("Invalid login!\n{0}", ReturnToLoginMenuMessage);
+            WriteLine("Invalid login!\n{0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteAccountAlreadyExists()
         {
-            WriteLine("Account login already exists! {0}", ReturnToLoginMenuMessage);
+            WriteLine("Account login already exists! {0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteInvalidPassword()
         {
-            Console.WriteLine("invalid/null Password!\n{0}", ReturnToLoginMenuMessage);
+            Console.WriteLine("invalid/null Password!\n{0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteInvalidName()
         {
-            Console.WriteLine("Invalid name!\n{0}", ReturnToLoginMenuMessage);
+            Console.WriteLine("Invalid name!\n{0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteInvalidAccount() {
@@ -71,7 +71,7 @@ namespace GameHub.Controllers
 
         public static void WriteAccountCreationSuccesful()
         {
-            WriteLine("Account successfully created! {0}", ReturnToLoginMenuMessage);
+            WriteLine("Account successfully created! {0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteInsertSecondPlayerAccount()
@@ -92,14 +92,26 @@ namespace GameHub.Controllers
             ReadKey();
         }
 
-        public static void WriteChooseYourMoveMessage(string PlayerColor)
+        public static void WriteChooseThePieceYouWannaMoveMessage(string playerColor)
         {
-            Console.WriteLine("{0} pieces round. Type the piece you want to move. Type the letter and the number of the square she is:", PlayerColor);
+            Console.WriteLine("{0} pieces round. Type the letter and the number of the piece you want to move:", playerColor);
+        }
+
+        public static void WriteChooseYourMovementMessage(string pieceName, char letter, char number)
+        {
+            Console.WriteLine("You have choose the {0} at {1}{2} position.Now type a valid location position (letter and number) that you want it to move:", pieceName, Char.ToUpper(letter), number);
         }
 
         public static void WriteWrongPiecePosition()
         {
-            WriteLine("Wrong piece position! Please, type the correct position of the piece you want to move. Ex: 'C2'");
+            WriteLine("Wrong/Invalid piece position! Please, type the correct position of the piece you want to move. Ex: 'C2'");
+            ReadKey();
+            Clear();
+        }
+
+        public static void WriteInvalidMovePosition()
+        {
+            WriteLine("Invalid move position. Please, type a new position.");
             ReadKey();
         }
     }

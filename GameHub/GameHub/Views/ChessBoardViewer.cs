@@ -5,9 +5,11 @@ namespace GameHub.Views
 {
     public static class ChessBoardViewer
     {
+        private static char[] LettersArray = new char[] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
         public static void PrintBoardActualStatus(int numberOfRows, int numberOfColumns, int[,] firstPiecesArray, int[,] secondPiecesArray)
         {
             Clear();
+            PrintColumnNumbers(numberOfColumns);
             for(int index = 0; index < numberOfRows; index++)
             {
                 PrintHorizontalLine(numberOfColumns);
@@ -18,23 +20,32 @@ namespace GameHub.Views
 
         private static void PrintHorizontalLine(int numberOfColumns)
         {
-            for (int columnIndex=0; columnIndex < numberOfColumns; columnIndex++)
+            Write("     +————+");
+            for (int columnIndex = 1; columnIndex < numberOfColumns - 1; columnIndex++)
             {
-                if (columnIndex == 0) { Write("+————+"); continue; }
-                if (columnIndex == numberOfColumns - 1) { WriteLine("————+"); continue; }
                 Write("————+");
             }
+            WriteLine("————+");
 
         }
 
+        private static void PrintColumnNumbers(int numberOfColumns)
+        {
+            Write("       {0}  ", LettersArray[0]);
+            for (int columnIndex = 1; columnIndex < numberOfColumns - 1; columnIndex++)
+            {
+                Write("  {0}  ", LettersArray[columnIndex]);
+            }
+            Write("  {0}  \n", LettersArray[numberOfColumns - 1]);
+        }
         private static void PrintVerticalLine(int numberOfColumns, int rowNumber, int[,] firstPiecesArray, int[,] secondPiecesArray)
         {
 
             ForegroundColor = ConsoleColor.White;
+            Write("  {0}  |",rowNumber + 1);
             for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++)
             {
-                if (columnIndex == 0) { Write("|");}
-                string squareFiller = CheckIfSquareHasPieceOnIt(columnIndex, rowNumber, firstPiecesArray, secondPiecesArray);
+                string[] squareFiller = CheckIfSquareHasPieceOnIt(columnIndex, rowNumber, firstPiecesArray, secondPiecesArray);
                 Write(" {0}", squareFiller);
                 ForegroundColor = ConsoleColor.White;
                 if (columnIndex == numberOfColumns - 1) { Write(" |\n"); continue; }
@@ -42,7 +53,7 @@ namespace GameHub.Views
             }
         }
 
-        private static string CheckIfSquareHasPieceOnIt(int columnIndex, int rowNumber,int[,] firstPiecesArray, int[,] secondPiecesArray)
+        private static string[] CheckIfSquareHasPieceOnIt(int columnIndex, int rowNumber,int[,] firstPiecesArray, int[,] secondPiecesArray)
         {
             if (
                 firstPiecesArray[rowNumber, columnIndex] == secondPiecesArray[rowNumber, columnIndex] && 
@@ -56,37 +67,33 @@ namespace GameHub.Views
             return ConvertPieceNumberToUnicodeSymbol(0);
         }
 
-        public static string ConvertPieceNumberToUnicodeSymbol(int? symbolNumber)
+        public static string[] ConvertPieceNumberToUnicodeSymbol(int? symbolNumber)
         {
             switch (symbolNumber)
             {
                 case 0:
-                    return "  ";
+                    return new string[] { "  ", "" };
                 case 1:
                     // return "\u2654";
-                    return "KI";
+                    return new string[] { "KI", "King" };
                 case 2:
                     // return "\u2654";
-                    return "QU";
+                    return new string[] { "QU", "Queen" };
                 case 3:
                     // return "\u2654";
-                    return "BI";
+                    return new string[] { "BI", "Bishop" };
                 case 4:
                     // return "\u2654";
-                    return "KN";
+                    return new string[] { "KN", "Knight" };
                                     
                 case 5:
                     // return "\u2654";
-                    return "RO";
+                    return new string[] { "RO", "Rook" };
                                     
                 case 6:
                     // return "\u2654";
-                    return "PW";
-                                    
-                case 7:
-                    // return "\u2654";                
-                    return "  ";
-                default: return "??";
+                    return new string[] { "PW", "Pawn" };
+                default: return new string[] { "??", "ERROR" };
             }
         }
     }
