@@ -1,10 +1,12 @@
 ﻿namespace GameHub.Models.ChessPieces
 {
-    internal interface IChessPieceModel
+    public interface IChessPieceModel
     {
+
+        string PieceName { get; }
+        string PiecePosition { get; set; }
+        int[] PiecePositionIntegerArray { get; set; }
         static int PieceCode { get; }
-        static string PieceName { get; }
-        static string piecePosition { get; set; }
 
         string MovementLogic(string positionCodeToMove, int[,] myPiecesPositions, int[,] enemyPiecesPositions);
         /* 
