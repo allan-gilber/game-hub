@@ -109,6 +109,13 @@ namespace GameHub.Controllers
             Clear();
         }
 
+        public static void WriteWrongMovePosition(string pieceName, string piecePosition)
+        {
+            WriteLine("Wrong/Invalid move position! Please, type a valid move position for {0} located in {1}", pieceName, piecePosition);
+            ReadKey();
+            Clear();
+        }
+
         public static void WriteInvalidMovePosition()
         {
             WriteLine("Invalid move position. Please, type a new position.");

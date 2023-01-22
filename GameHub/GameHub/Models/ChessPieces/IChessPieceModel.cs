@@ -4,11 +4,10 @@
     {
 
         string PieceName { get; }
-        string PiecePosition { get; set; }
-        int[] PiecePositionIntegerArray { get; set; }
         static int PieceCode { get; }
-
-        string MovementLogic(string positionCodeToMove, int[,] myPiecesPositions, int[,] enemyPiecesPositions);
+        string PiecePosition { get; set; }
+        bool MovementLogic(string positionCodeToMove, int[,] myPiecesPositions, int[,] enemyPiecesPositions);
+        void SetPiecePositionIntegerArray(int[] piecePositionIntegerArray);
         /* 
         string UpMovementLogic();
         string DownMovementLogic();

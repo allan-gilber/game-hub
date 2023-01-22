@@ -50,7 +50,7 @@ namespace GameHub.Controllers.ChessControllers
                     Console.Write(BlackPiecesPositions[i, j] + "\t");
                 }
                 Console.WriteLine();
-            } 
+            }
 
             WriteLine("test: " + ChessBoardViewer.ConvertPieceNumberToUnicodeSymbol(1));
             ReadKey();
@@ -62,11 +62,15 @@ namespace GameHub.Controllers.ChessControllers
                     WriteChooseThePieceYouWannaMoveMessage(_BlackPiecesround ? "Black" : "White");
                     string? userInput = ReadLine();
                     WriteLine(userInput);
-
-                    if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, _BlackPiecesround ? BlackPiecesPositions : WhitePiecesPositions)) continue;
+                    int[,] piecesArrayPositions = _BlackPiecesround ? BlackPiecesPositions : WhitePiecesPositions;
+                    if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, piecesArrayPositions)) continue;
+                    var pieceObject = CreateChessPieceObject(piecesArrayPositions[userInput[0], userInput[1]], userInput, _BlackPiecesround ? false : true, _SelectedChessPieceLocation);
 
                     WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput[0], userInput[1]);
-                    ReadKey();
+                    string? movePositionCode = ReadLine();
+
+
+                    // PiecePositions[positionNumber, (int)convertedPositionLetter]
                     //ChosseYourMovement();
                 }
             }
@@ -111,19 +115,20 @@ namespace GameHub.Controllers.ChessControllers
         }
 
 
-       /* public static CreateChessPieceObject(int chessPieceCode)
+       public static object CreateChessPieceObject(int chessPieceCode, string piecePosition, bool movingUpward, int[] piecePositionIntegerArray)
         {
             switch (chessPieceCode)
             {
-                case 1: { return new King(); }
-                case 2: return new Queen();
+                case 1:  return new Pawn( piecePosition,  movingUpward, piecePositionIntegerArray); 
+               /* case 2: return new Queen();
                 case 3: return new Bishop();
                 case 4: return new Knight();
                 case 5: return new Rook();
                 case 6: return new Pawn();
-                // default: return 0;
+               */
+                default: return new Pawn( piecePosition, movingUpward,  piecePositionIntegerArray);
             }
-        }*/
+        }
 
         public static int? ConvertLetterToPosition(char letter)
         {
