@@ -6,16 +6,31 @@ namespace GameHub.Views
     public static class ChessBoardViewer
     {
         private static char[] LettersArray = new char[] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
-        public static void PrintBoardActualStatus(int numberOfRows, int numberOfColumns, int[,] firstPiecesArray, int[,] secondPiecesArray)
+        public static void PrintBoardActualStatus(int numberOfRows, int numberOfColumns, int[,] firstPiecesArray, int[,] secondPiecesArray, int[] whitePiecesGraveyard, int[] blackPiecesGraveyard)
         {
             Clear();
             PrintColumnNumbers(numberOfColumns);
-            for(int index = 0; index < numberOfRows; index++)
+            for (int index = 0; index < numberOfRows; index++)
             {
                 PrintHorizontalLine(numberOfColumns);
                 PrintVerticalLine(numberOfColumns, index, firstPiecesArray, secondPiecesArray);
-                if(index == 7) PrintHorizontalLine(numberOfColumns);
+
+                if (index == 0) { WriteLine("  Black Pieces Graveyard"); continue; }
+                if (index == 1) { PrintGraveyardStatus(blackPiecesGraveyard); continue; }
+                if (index == 6) { WriteLine("  White Pieces Graveyard"); continue; }
+                if (index == 7) { PrintGraveyardStatus(whitePiecesGraveyard); PrintHorizontalLine(numberOfColumns); }
+                Write("\n");
             }
+        }
+
+        private static void PrintGraveyardStatus(int[] piecesGraveYard)
+        {
+            int positionToIndexConverter = 1;
+            for (int i = 1; i < 6; i++)
+            {
+                Write("  {0}: {1}  ", ConvertPieceNumberToUnicodeSymbol(i)[0], piecesGraveYard[i - positionToIndexConverter]);
+            }
+            WriteLine("  {0}: {1}  ", ConvertPieceNumberToUnicodeSymbol(6)[0], piecesGraveYard[5]);
         }
 
         private static void PrintHorizontalLine(int numberOfColumns)
@@ -42,13 +57,15 @@ namespace GameHub.Views
         {
 
             ForegroundColor = ConsoleColor.White;
-            Write("  {0}  |",rowNumber + 1);
+            Write("  {0}  |", rowNumber + 1);
             for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++)
             {
                 string[] squareFiller = CheckIfSquareHasPieceOnIt(columnIndex, rowNumber, firstPiecesArray, secondPiecesArray);
                 Write(" {0}", squareFiller);
                 ForegroundColor = ConsoleColor.White;
-                if (columnIndex == numberOfColumns - 1) { Write(" |\n"); continue; }
+                /*if (columnIndex == numberOfColumns - 1) { 
+                    Write(" |\n"); continue; 
+                }*/
                 Write(" |");
             }
         }

@@ -2,7 +2,7 @@
 
 namespace GameHub.Models.ChessPieces.ChessPieces
 {
-    internal class King : IChessPieceModel
+    internal class King
     {
         public static int PieceCode { get; } = 1;
         public string PieceName { get; } = "KI";

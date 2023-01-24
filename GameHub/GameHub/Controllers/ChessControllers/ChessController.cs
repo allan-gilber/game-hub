@@ -15,15 +15,19 @@ namespace GameHub.Controllers.ChessControllers
 {
     internal static class ChessController
     {
-        private static int[,] WhitePiecesPositions = new int[8 , 8];
-        private static int[,] BlackPiecesPositions = new int[8 , 8];
-        internal static LoginData? FirstPlayer { get; set; } = GameHubController.LoggedAccount;
-        internal static LoginData? SecondPlayer { get; set; }
-        private static bool _ShouldContinue = true;
-        private static bool _BlackPiecesround = false;
-        private static bool _ChooseYourMoveMenuLoopController = true;
+        private static int[,] _WhitePiecesPositions = new int[8 , 8];
+        private static int[,] _BlackPiecesPositions = new int[8 , 8];
+        private static int[] _WhitePiecesGraveyard { get; set; } = new int[6];
+        private static int[] _BlackPiecesGraveyard { get; set; } = new int[6];
         private static int[] _SelectedChessPieceLocation = new int[2];
         private static string _SelectedChessPieceName = "";
+        internal static LoginData? FirstPlayer { get; set; } = GameHubController.LoggedAccount;
+        internal static LoginData? SecondPlayer { get; set; }
+        private static bool _BlackPiecesround = false;
+
+        // Loop controllers
+        private static bool _ShouldContinue = true;
+        private static bool _ChooseYourMoveMenuLoopController = true;
 
         public static void InitiateChessGame()
         {
@@ -34,20 +38,20 @@ namespace GameHub.Controllers.ChessControllers
             PopulateChessBoard();
             Clear();
             
-            for (int i = 0; i < WhitePiecesPositions.GetLength(0); i++)
+            for (int i = 0; i < _WhitePiecesPositions.GetLength(0); i++)
             {
-                for (int j = 0; j < WhitePiecesPositions.GetLength(1); j++)
+                for (int j = 0; j < _WhitePiecesPositions.GetLength(1); j++)
                 {
-                    Console.Write(WhitePiecesPositions[i, j] + "\t");
+                    Console.Write(_WhitePiecesPositions[i, j] + "\t");
                 }
                 Console.WriteLine();
             }
             WriteLine("-----------------------------------------------------------");
-            for (int i = 0; i < BlackPiecesPositions.GetLength(0); i++)
+            for (int i = 0; i < _BlackPiecesPositions.GetLength(0); i++)
             {
-                for (int j = 0; j < BlackPiecesPositions.GetLength(1); j++)
+                for (int j = 0; j < _BlackPiecesPositions.GetLength(1); j++)
                 {
-                    Console.Write(BlackPiecesPositions[i, j] + "\t");
+                    Console.Write(_BlackPiecesPositions[i, j] + "\t");
                 }
                 Console.WriteLine();
             }
@@ -58,18 +62,24 @@ namespace GameHub.Controllers.ChessControllers
 
             while (_ShouldContinue) { 
                 while (_ChooseYourMoveMenuLoopController) {
-                    ChessBoardViewer.PrintBoardActualStatus(8,8, WhitePiecesPositions, BlackPiecesPositions);
+                    ChessBoardViewer.PrintBoardActualStatus(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
                     WriteChooseThePieceYouWannaMoveMessage(_BlackPiecesround ? "Black" : "White");
                     string? userInput = ReadLine();
                     WriteLine(userInput);
-                    int[,] piecesArrayPositions = _BlackPiecesround ? BlackPiecesPositions : WhitePiecesPositions;
-                    if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, piecesArrayPositions)) continue;
-                    var pieceObject = CreateChessPieceObject(piecesArrayPositions[userInput[0], userInput[1]], userInput, _BlackPiecesround ? false : true, _SelectedChessPieceLocation);
+                    int[,] myPiecesArrayPositions, ememyPiecesArrayPositions;
+
+                    if (_BlackPiecesround) { myPiecesArrayPositions = _BlackPiecesPositions; ememyPiecesArrayPositions = _WhitePiecesPositions; }
+                    else { myPiecesArrayPositions = _WhitePiecesPositions; ememyPiecesArrayPositions = _BlackPiecesPositions; }
+
+                    if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, myPiecesArrayPositions)) continue;
+                    var pieceObject = CreateChessPieceObject(myPiecesArrayPositions[_SelectedChessPieceLocation[0], _SelectedChessPieceLocation[1]], userInput, !_BlackPiecesround, _SelectedChessPieceLocation);
 
                     WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput[0], userInput[1]);
                     string? movePositionCode = ReadLine();
 
+                    pieceObject.MovementLogic(movePositionCode, myPiecesArrayPositions, ememyPiecesArrayPositions, _BlackPiecesround ? _BlackPiecesGraveyard : _WhitePiecesGraveyard);
 
+                    ReadKey();
                     // PiecePositions[positionNumber, (int)convertedPositionLetter]
                     //ChosseYourMovement();
                 }
@@ -115,7 +125,7 @@ namespace GameHub.Controllers.ChessControllers
         }
 
 
-       public static object CreateChessPieceObject(int chessPieceCode, string piecePosition, bool movingUpward, int[] piecePositionIntegerArray)
+       public static Pawn CreateChessPieceObject(int chessPieceCode, string piecePosition, bool movingUpward, int[] piecePositionIntegerArray)
         {
             switch (chessPieceCode)
             {
@@ -167,38 +177,40 @@ namespace GameHub.Controllers.ChessControllers
         public static void PopulateChessBoard()
         {
             // King
-            BlackPiecesPositions[0, 4] = 1;
-            WhitePiecesPositions[7, 4] = 1;
+            _BlackPiecesPositions[0, 4] = 1;
+            _WhitePiecesPositions[7, 4] = 1;
 
             // Queen
-            BlackPiecesPositions[0, 3] = 2;
-            WhitePiecesPositions[7, 3] = 2;
+            _BlackPiecesPositions[0, 3] = 2;
+            _WhitePiecesPositions[7, 3] = 2;
             
             // Bishops
-            BlackPiecesPositions[0, 2] = 3;
+            _BlackPiecesPositions[0, 2] = 3;
 
-            BlackPiecesPositions[0, 5] = 3;
-            WhitePiecesPositions[7, 2] = 3;
-            WhitePiecesPositions[7, 5] = 3;
+            _BlackPiecesPositions[0, 5] = 3;
+            _WhitePiecesPositions[7, 2] = 3;
+            _WhitePiecesPositions[7, 5] = 3;
             
             // Knights
-            BlackPiecesPositions[0, 1] = 4;
-            BlackPiecesPositions[0, 6] = 4;
-            WhitePiecesPositions[7, 1] = 4;
-            WhitePiecesPositions[7, 6] = 4;
+            _BlackPiecesPositions[0, 1] = 4;
+            _BlackPiecesPositions[0, 6] = 4;
+            _WhitePiecesPositions[7, 1] = 4;
+            _WhitePiecesPositions[7, 6] = 4;
 
             // Rooks
-            BlackPiecesPositions[0, 0] = 5;
-            BlackPiecesPositions[0, 7] = 5;
-            WhitePiecesPositions[7, 0] = 5;
-            WhitePiecesPositions[7, 7] = 5;
+            _BlackPiecesPositions[0, 0] = 5;
+            _BlackPiecesPositions[0, 7] = 5;
+            _WhitePiecesPositions[7, 0] = 5;
+            _WhitePiecesPositions[7, 7] = 5;
 
             // Pawns
             for(int i = 0; i < 8; i++)
             {
-                BlackPiecesPositions[1, i] = 6;
-                WhitePiecesPositions[6, i] = 6;
+                _BlackPiecesPositions[1, i] = 6;
+                _WhitePiecesPositions[6, i] = 6;
             }
+            _WhitePiecesPositions[2, 1] = 6;
+
         }
     }
 }
