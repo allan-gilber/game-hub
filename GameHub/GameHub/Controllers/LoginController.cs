@@ -46,7 +46,7 @@ namespace GameHub.Controllers
         internal static  void Login()
         {
             Console.Clear();
-            Console.WriteLine("Type your login:");
+            /* Console.WriteLine("Type your login:");
             string? userInputLogin = Console.ReadLine();
             if (userInputLogin == null || userInputLogin == "") { Console.WriteLine("Invalid account login"); Console.ReadKey(); return; }
             Console.Clear();
@@ -61,8 +61,11 @@ namespace GameHub.Controllers
 
             LoginData findAccount = GameHubController.SavedAccounts.ElementAt(indexOfTheAccount);
             if (findAccount.Password != userInputPassword) { Console.WriteLine(InvalidLoginMessage); Console.ReadKey(); return; };
-
+            
             GameHubController.LoggedAccount = findAccount;
+            */
+            GameHubController.LoggedAccount = new LoginData("a","b","c");
+            GameHubController.SavedAccounts.Add(new LoginData("d", "e", "f"));
             Console.WriteLine("The login was successful!");
             MenuController.MainMenu();
         }

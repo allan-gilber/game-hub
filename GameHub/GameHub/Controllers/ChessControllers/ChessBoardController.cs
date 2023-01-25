@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameHub.Controllers
+namespace GameHub.Controllers.ChessControllers
 {
-    internal class ChessController
+    internal class ChessBoardController
     {
+
+        public ChessBoardController() { }
+
     }
 }

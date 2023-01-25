@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using System;
+using static System.Console;
 
 namespace GameHub.Controllers
 {
@@ -6,7 +7,7 @@ namespace GameHub.Controllers
     {
         public static string InvalidLoginMessage { get; } = "Failed to login: incorrect login and/or password.";
         public static string ReturnToMainMenuMessage { get; } = "Returning to main menu...";
-        public static string ReturnToLoginMenuMessage { get; } = "Returning to login menu...";
+        private static string _ReturnToLoginMenuMessage { get; } = "Returning to login menu...";
 
         public static void WriteInvalidOptionMessage() { 
             WriteLine("Invalid option. Please type a valid number from the menu below:"); 
@@ -14,7 +15,7 @@ namespace GameHub.Controllers
 
         public static void WriteMessage(string Message)
         {
-            Console.WriteLine(Message);
+            WriteLine(Message);
         }
 
         public static void WriteLoginMenu()
@@ -40,27 +41,85 @@ namespace GameHub.Controllers
 
         public static void WriteInvalidLogin()
         {
-            Console.WriteLine("Invalid login!\n{0}", ReturnToLoginMenuMessage);
+            WriteLine("Invalid login!\n{0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteAccountAlreadyExists()
         {
-            Console.WriteLine("Account login already exists! {0}", ReturnToLoginMenuMessage);
+            WriteLine("Account login already exists! {0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteInvalidPassword()
         {
-            Console.WriteLine("invalid/null Password!\n{0}", ReturnToLoginMenuMessage);
+            Console.WriteLine("invalid/null Password!\n{0}", _ReturnToLoginMenuMessage);
         }
 
         public static void WriteInvalidName()
         {
-            Console.WriteLine("Invalid name!\n{0}", ReturnToLoginMenuMessage);
+            Console.WriteLine("Invalid name!\n{0}", _ReturnToLoginMenuMessage);
         }
+
+        public static void WriteInvalidAccount() {
+            Console.WriteLine("invalid/null account");
+        }
+
+        public static void WriteAccountNotFound()
+        {
+            WriteLine("Account not found");
+        }
+
 
         public static void WriteAccountCreationSuccesful()
         {
-            Console.WriteLine("Account successfully created! {0}", ReturnToLoginMenuMessage);
+            WriteLine("Account successfully created! {0}", _ReturnToLoginMenuMessage);
+        }
+
+        public static void WriteInsertSecondPlayerAccount()
+        {
+            WriteLine("Insert second player account: ");
+        }
+
+        // Specific Chess Game Messages
+
+        public static void WriteChessWelcomeMessage()
+        {
+            WriteLine("Welcome to C# Chess 1.0!");
+            WriteLine("Hope you have a good fun.");
+        }
+        public static void WriteGameplayersNames(string firstPlayerName, string secondPlayerName) {
+            WriteLine("The match will be:\n{0} (white) vs {1} (black)", firstPlayerName, secondPlayerName);
+            WriteLine("Lets begin the match!");
+            ReadKey();
+        }
+
+        public static void WriteChooseThePieceYouWannaMoveMessage(string playerColor)
+        {
+            Console.WriteLine("{0} pieces round. Type the letter and the number of the piece you want to move:", playerColor);
+        }
+
+        public static void WriteChooseYourMovementMessage(string pieceName, char letter, char number)
+        {
+            Console.WriteLine("You have choose the {0} at {1}{2} position.Now type a valid location position (letter and number) that you want it to move:", pieceName, Char.ToUpper(letter), number);
+        }
+
+        public static void WriteWrongPiecePosition()
+        {
+            WriteLine("Wrong/Invalid piece position! Please, type the correct position of the piece you want to move. Ex: 'C2'");
+            ReadKey();
+            Clear();
+        }
+
+        public static void WriteWrongMovePosition(string pieceName, string piecePosition)
+        {
+            WriteLine("Wrong/Invalid move position! Please, type a valid move position for {0} located in {1}", pieceName, piecePosition);
+            ReadKey();
+            Clear();
+        }
+
+        public static void WriteInvalidMovePosition()
+        {
+            WriteLine("Invalid move position. Please, type a new position.");
+            ReadKey();
         }
     }
 }

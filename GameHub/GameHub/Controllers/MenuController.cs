@@ -1,4 +1,5 @@
-﻿using GameHub.Models;
+﻿using GameHub.Controllers.ChessControllers;
+using GameHub.Models;
 using static System.Console;
 
 namespace GameHub.Controllers
@@ -52,7 +53,7 @@ namespace GameHub.Controllers
                         LoginController.Logout();
                         break;
                     case 1:
-                        LoginController.DeleteAccount();
+                        ChessController.InitiateChessGame();
                         break;
                     case 2:
                         WriteLine("Play Tic-Tac-Toe");
