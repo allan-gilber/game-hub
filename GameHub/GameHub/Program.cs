@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace GameHub
 {
-    public class GameHub
+    public static class  GameHub
     {
 
         public static void Main(string[] args)

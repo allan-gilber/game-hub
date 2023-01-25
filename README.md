@@ -34,8 +34,8 @@ Content Table
 - [x] Login system
 - [ ] Chess Game
   - [x] Start Game
-  - [ ] Movement of all pieces
   - [ ] Ending of the match
+  - [ ] Movement of all pieces
   - [ ] Game advanced rules
 - [ ] Tic-tac-toe Game
 - [ ] Third game (still to be defined)

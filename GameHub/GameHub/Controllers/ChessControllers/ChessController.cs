@@ -34,54 +34,32 @@ namespace GameHub.Controllers.ChessControllers
             Clear();
             WriteChessWelcomeMessage();
             ReadKey();
-            // ChooseYourOpponent();
+            ChooseYourOpponent();
             PopulateChessBoard();
             Clear();
-            
-            for (int i = 0; i < _WhitePiecesPositions.GetLength(0); i++)
-            {
-                for (int j = 0; j < _WhitePiecesPositions.GetLength(1); j++)
-                {
-                    Console.Write(_WhitePiecesPositions[i, j] + "\t");
-                }
-                Console.WriteLine();
-            }
-            WriteLine("-----------------------------------------------------------");
-            for (int i = 0; i < _BlackPiecesPositions.GetLength(0); i++)
-            {
-                for (int j = 0; j < _BlackPiecesPositions.GetLength(1); j++)
-                {
-                    Console.Write(_BlackPiecesPositions[i, j] + "\t");
-                }
-                Console.WriteLine();
-            }
-
-            WriteLine("test: " + ChessBoardViewer.ConvertPieceNumberToUnicodeSymbol(1));
-            ReadKey();
-       
 
             while (_ShouldContinue) { 
                 while (_ChooseYourMoveMenuLoopController) {
-                    ChessBoardViewer.PrintBoardActualStatus(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
-                    WriteChooseThePieceYouWannaMoveMessage(_BlackPiecesround ? "Black" : "White");
-                    string? userInput = ReadLine();
-                    WriteLine(userInput);
                     int[,] myPiecesArrayPositions, ememyPiecesArrayPositions;
+                    string? userInput, movePositionCode;
+
+                    ChessBoardViewer.PrintBoardActualStatus(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
+                    
+                    WriteChooseThePieceYouWannaMoveMessage(_BlackPiecesround ? "Black" : "White");
+                    userInput = ReadLine();
 
                     if (_BlackPiecesround) { myPiecesArrayPositions = _BlackPiecesPositions; ememyPiecesArrayPositions = _WhitePiecesPositions; }
                     else { myPiecesArrayPositions = _WhitePiecesPositions; ememyPiecesArrayPositions = _BlackPiecesPositions; }
 
                     if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, myPiecesArrayPositions)) continue;
-                    var pieceObject = CreateChessPieceObject(myPiecesArrayPositions[_SelectedChessPieceLocation[0], _SelectedChessPieceLocation[1]], userInput, !_BlackPiecesround, _SelectedChessPieceLocation);
+                    var pieceObject = CreateChessPieceObject(myPiecesArrayPositions[_SelectedChessPieceLocation[0], _SelectedChessPieceLocation[1]], userInput!, !_BlackPiecesround, _SelectedChessPieceLocation);
 
-                    WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput[0], userInput[1]);
-                    string? movePositionCode = ReadLine();
+                    WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput![0], userInput[1]);
+                    movePositionCode = ReadLine();
 
                     pieceObject.MovementLogic(movePositionCode, myPiecesArrayPositions, ememyPiecesArrayPositions, _BlackPiecesround ? _BlackPiecesGraveyard : _WhitePiecesGraveyard);
 
                     ReadKey();
-                    // PiecePositions[positionNumber, (int)convertedPositionLetter]
-                    //ChosseYourMovement();
                 }
             }
             _ShouldContinue = true;
@@ -125,18 +103,17 @@ namespace GameHub.Controllers.ChessControllers
         }
 
 
-       public static Pawn CreateChessPieceObject(int chessPieceCode, string piecePosition, bool movingUpward, int[] piecePositionIntegerArray)
+       public static IChessPieceModel CreateChessPieceObject(int chessPieceCode, string piecePosition, bool movingUpward, int[] piecePositionIntegerArray)
         {
             switch (chessPieceCode)
             {
-                case 1:  return new Pawn( piecePosition,  movingUpward, piecePositionIntegerArray); 
-               /* case 2: return new Queen();
+                case 1:  return new King(piecePosition, piecePositionIntegerArray); 
+                case 2: return new Queen();
                 case 3: return new Bishop();
                 case 4: return new Knight();
                 case 5: return new Rook();
-                case 6: return new Pawn();
-               */
-                default: return new Pawn( piecePosition, movingUpward,  piecePositionIntegerArray);
+                case 6: return new Pawn(piecePosition, movingUpward, piecePositionIntegerArray);
+                default: return new Pawn(piecePosition, movingUpward,  piecePositionIntegerArray);
             }
         }
 
