@@ -121,5 +121,14 @@ namespace GameHub.Controllers
             WriteLine("Invalid move position. Please, type a new position.");
             ReadKey();
         }
+
+        // Specific Tic-Tac-Toe messages
+
+        public static void WriteTicTacToeWelcomeMessage()
+        {
+            WriteLine("Welcome to C# Tic-Tac-Toe 1.0!");
+            WriteLine("Hope you have a good fun.");
+        }
+
     }
 }

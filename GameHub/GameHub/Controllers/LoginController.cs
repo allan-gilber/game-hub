@@ -43,31 +43,35 @@ namespace GameHub.Controllers
             Console.ReadKey();
         }
 
-        internal static  void Login()
+        internal static  bool Login()
         {
+           /*
             Console.Clear();
-            /* Console.WriteLine("Type your login:");
+            Console.WriteLine("Type your login:");
             string? userInputLogin = Console.ReadLine();
-            if (userInputLogin == null || userInputLogin == "") { Console.WriteLine("Invalid account login"); Console.ReadKey(); return; }
+            if (userInputLogin == null || userInputLogin == "") { Console.WriteLine("Invalid account login"); Console.ReadKey(); return false; }
             Console.Clear();
 
             Console.WriteLine("Type your password:");
             string? userInputPassword = Console.ReadLine();
-            if (userInputPassword == null || userInputPassword == "") { WriteMessage(InvalidLoginMessage); Console.ReadKey(); return; }
+            if (userInputPassword == null || userInputPassword == "") { WriteMessage(InvalidLoginMessage); Console.ReadKey(); return false; }
             Console.Clear();
 
             int indexOfTheAccount = GameHubController.SavedAccounts.FindIndex(account => account.Login == userInputLogin);
-            if (indexOfTheAccount == -1) { Console.WriteLine(InvalidLoginMessage); Console.ReadKey(); return; }
+            if (indexOfTheAccount == -1) { Console.WriteLine(InvalidLoginMessage); Console.ReadKey(); return false; }
 
             LoginData findAccount = GameHubController.SavedAccounts.ElementAt(indexOfTheAccount);
-            if (findAccount.Password != userInputPassword) { Console.WriteLine(InvalidLoginMessage); Console.ReadKey(); return; };
+            if (findAccount.Password != userInputPassword) { Console.WriteLine(InvalidLoginMessage); Console.ReadKey(); return false; };
             
             GameHubController.LoggedAccount = findAccount;
-            */
+           */
+            // Test account inserting
             GameHubController.LoggedAccount = new LoginData("a","b","c");
             GameHubController.SavedAccounts.Add(new LoginData("d", "e", "f"));
+            
+
             Console.WriteLine("The login was successful!");
-            MenuController.MainMenu();
+            return true;
         }
 
         internal static  void Logout()

@@ -1,11 +1,8 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using GameHub.Models;
+﻿using GameHub.Models;
 using GameHub.Models.ChessPieces;
 using GameHub.Models.ChessPieces.ChessPieces;
 using GameHub.Views;
+using static GameHub.Controllers.GameHubController;
 using static System.Console;
 using static GameHub.Controllers.ConsolePrinterController;
 using static GameHub.Views.ChessBoardViewer;
@@ -21,13 +18,13 @@ namespace GameHub.Controllers.ChessControllers
         private static int[] _BlackPiecesGraveyard { get; set; } = new int[6];
         private static int[] _SelectedChessPieceLocation = new int[2];
         private static string _SelectedChessPieceName = "";
-        internal static LoginData? FirstPlayer { get; set; } = GameHubController.LoggedAccount;
-        internal static LoginData? SecondPlayer { get; set; }
         private static bool _BlackPiecesround = false;
 
         // Loop controllers
         private static bool _ShouldContinue = true;
         private static bool _ChooseYourMoveMenuLoopController = true;
+        private static bool _ChooseYourMovePositionLoopMenuController = true;
+        
 
         public static void InitiateChessGame()
         {
@@ -41,7 +38,8 @@ namespace GameHub.Controllers.ChessControllers
             while (_ShouldContinue) { 
                 while (_ChooseYourMoveMenuLoopController) {
                     int[,] myPiecesArrayPositions, ememyPiecesArrayPositions;
-                    string? userInput, movePositionCode;
+                    string? userInput;
+                    string movePositionCode = null;
 
                     ChessBoardViewer.PrintBoardActualStatus(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
                     
@@ -54,12 +52,19 @@ namespace GameHub.Controllers.ChessControllers
                     if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, myPiecesArrayPositions)) continue;
                     var pieceObject = CreateChessPieceObject(myPiecesArrayPositions[_SelectedChessPieceLocation[0], _SelectedChessPieceLocation[1]], userInput!, !_BlackPiecesround, _SelectedChessPieceLocation);
 
-                    WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput![0], userInput[1]);
-                    movePositionCode = ReadLine();
+                    _ChooseYourMovePositionLoopMenuController = true;
 
-                    pieceObject.MovementLogic(movePositionCode, myPiecesArrayPositions, ememyPiecesArrayPositions, _BlackPiecesround ? _BlackPiecesGraveyard : _WhitePiecesGraveyard);
+                    while (_ChooseYourMovePositionLoopMenuController) {
+                        WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput![0], userInput[1]);
+                        movePositionCode = ReadLine();
+                        if (movePositionCode == null) continue;
 
-                    ReadKey();
+                        pieceObject.MovementLogic(movePositionCode, myPiecesArrayPositions, ememyPiecesArrayPositions, _BlackPiecesround ? _BlackPiecesGraveyard : _WhitePiecesGraveyard);
+
+                        ReadKey();
+                        _ChooseYourMovePositionLoopMenuController = false;
+                    }
+
                 }
             }
             _ShouldContinue = true;
@@ -82,26 +87,6 @@ namespace GameHub.Controllers.ChessControllers
 
             return true;
         }
-
-        public static void ChooseYourOpponent()
-        {
-            bool ReceiveAccountNameLoopController = true;
-            while (ReceiveAccountNameLoopController) { 
-                Clear();
-                WriteInsertSecondPlayerAccount();
-                string? userInput = ReadLine();
-
-                if (userInput == null || userInput == "") { WriteInvalidAccount(); ReadKey(); continue; }
-                int indexOfTheAccount = GameHubController.SavedAccounts.FindIndex(account => account.Login == userInput);
-                if (indexOfTheAccount == -1) { WriteAccountNotFound(); ReadKey(); continue; }
-                ReceiveAccountNameLoopController = false;
-                SecondPlayer = GameHubController.SavedAccounts[indexOfTheAccount];
-            }
-            Clear();
-            WriteGameplayersNames(FirstPlayer!.PersonName, SecondPlayer!.PersonName);
-            ReadLine();
-        }
-
 
        public static IChessPieceModel CreateChessPieceObject(int chessPieceCode, string piecePosition, bool movingUpward, int[] piecePositionIntegerArray)
         {

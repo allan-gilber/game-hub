@@ -24,7 +24,7 @@ namespace GameHub.Controllers
                         _AppShutdown();
                         break;
                     case 1:
-                        LoginController.Login();
+                        if(LoginController.Login()) MenuController.MainMenu();
                         break;
                     case 2:
                         LoginController.CreateNewAccount();
