@@ -1,6 +1,6 @@
 ﻿
 using static GameHub.Controllers.ConsolePrinterController;
-using static GameHub.Controllers.ChessControllers.ChessController;
+using static GameHub.Views.BoardViewer;
 
 namespace GameHub.Models.ChessPieces.ChessPieces
 {

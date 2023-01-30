@@ -97,6 +97,11 @@ namespace GameHub.Controllers
             Console.WriteLine("{0} pieces round. Type the letter and the number of the piece you want to move:", playerColor);
         }
 
+        public static void WriteChooseYourMovementMensage(string playerColor)
+        {
+            Console.WriteLine("{0} round. Type the letter and the number of the square you want to mark:", playerColor);
+        }
+
         public static void WriteChooseYourMovementMessage(string pieceName, char letter, char number)
         {
             Console.WriteLine("You have choose the {0} at {1}{2} position.Now type a valid location position (letter and number) that you want it to move:", pieceName, Char.ToUpper(letter), number);
@@ -118,7 +123,7 @@ namespace GameHub.Controllers
 
         public static void WriteInvalidMovePosition()
         {
-            WriteLine("Invalid move position. Please, type a new position.");
+            WriteLine("Invalid position. Please, type a new position.");
             ReadKey();
         }
 
@@ -128,6 +133,11 @@ namespace GameHub.Controllers
         {
             WriteLine("Welcome to C# Tic-Tac-Toe 1.0!");
             WriteLine("Hope you have a good fun.");
+        }
+
+        public static void WriteTicTacToeWinMessage(string userName, string teamName)
+        {
+            WriteLine("Victory! The team of the {0} won! The user {1} won this match.", userName, teamName);
         }
 
     }

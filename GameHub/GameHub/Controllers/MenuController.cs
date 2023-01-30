@@ -1,4 +1,5 @@
 ﻿using GameHub.Controllers.ChessControllers;
+using GameHub.Controllers.Tic_tac_toe;
 using GameHub.Models;
 using static System.Console;
 
@@ -56,7 +57,7 @@ namespace GameHub.Controllers
                         ChessController.InitiateChessGame();
                         break;
                     case 2:
-                        WriteLine("Play Tic-Tac-Toe");
+                        TicTacToeController.InitiateTictacToeGame();
                         ReadKey();
                         break;
                     case 3:

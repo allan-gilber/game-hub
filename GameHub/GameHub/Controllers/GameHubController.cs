@@ -5,7 +5,7 @@ using GameHub.Views;
 using static GameHub.Controllers.GameHubController;
 using static System.Console;
 using static GameHub.Controllers.ConsolePrinterController;
-using static GameHub.Views.ChessBoardViewer;
+using static GameHub.Views.BoardViewer;
 
 namespace GameHub.Controllers
 {

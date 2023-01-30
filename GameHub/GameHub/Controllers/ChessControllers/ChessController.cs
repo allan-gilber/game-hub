@@ -5,7 +5,7 @@ using GameHub.Views;
 using static GameHub.Controllers.GameHubController;
 using static System.Console;
 using static GameHub.Controllers.ConsolePrinterController;
-using static GameHub.Views.ChessBoardViewer;
+using static GameHub.Views.BoardViewer;
 
 
 namespace GameHub.Controllers.ChessControllers
@@ -21,9 +21,8 @@ namespace GameHub.Controllers.ChessControllers
         private static bool _BlackPiecesround = false;
 
         // Loop controllers
-        private static bool _ShouldContinue = true;
+        private static bool _EndOfGameLoopController = true;
         private static bool _ChooseYourMoveMenuLoopController = true;
-        private static bool _ChooseYourMovePositionLoopMenuController = true;
         
 
         public static void InitiateChessGame()
@@ -35,13 +34,13 @@ namespace GameHub.Controllers.ChessControllers
             PopulateChessBoard();
             Clear();
 
-            while (_ShouldContinue) { 
+            while (_EndOfGameLoopController) { 
                 while (_ChooseYourMoveMenuLoopController) {
                     int[,] myPiecesArrayPositions, ememyPiecesArrayPositions;
                     string? userInput;
-                    string movePositionCode = null;
+                    string? movePositionCode;
 
-                    ChessBoardViewer.PrintBoardActualStatus(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
+                    BoardViewer.PrintChessBoard(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
                     
                     WriteChooseThePieceYouWannaMoveMessage(_BlackPiecesround ? "Black" : "White");
                     userInput = ReadLine();
@@ -52,7 +51,7 @@ namespace GameHub.Controllers.ChessControllers
                     if (!CheckIfUserHasAPieceOnTheIndicatedPosition(userInput, myPiecesArrayPositions)) continue;
                     var pieceObject = CreateChessPieceObject(myPiecesArrayPositions[_SelectedChessPieceLocation[0], _SelectedChessPieceLocation[1]], userInput!, !_BlackPiecesround, _SelectedChessPieceLocation);
 
-                    _ChooseYourMovePositionLoopMenuController = true;
+                    bool _ChooseYourMovePositionLoopMenuController = true;
 
                     while (_ChooseYourMovePositionLoopMenuController) {
                         WriteChooseYourMovementMessage(_SelectedChessPieceName, userInput![0], userInput[1]);
@@ -67,7 +66,7 @@ namespace GameHub.Controllers.ChessControllers
 
                 }
             }
-            _ShouldContinue = true;
+            _EndOfGameLoopController = true;
         }
 
         public static bool CheckIfUserHasAPieceOnTheIndicatedPosition(string? userInput, int[,] PiecePositions)
@@ -99,40 +98,6 @@ namespace GameHub.Controllers.ChessControllers
                 case 5: return new Rook();
                 case 6: return new Pawn(piecePosition, movingUpward, piecePositionIntegerArray);
                 default: return new Pawn(piecePosition, movingUpward,  piecePositionIntegerArray);
-            }
-        }
-
-        public static int? ConvertLetterToPosition(char letter)
-        {
-            letter = Char.ToUpper(letter);
-            switch (letter)
-            {
-                case 'A': return 0;
-                case 'B': return 1;
-                case 'C': return 2;
-                case 'D': return 3;
-                case 'E': return 4;
-                case 'F': return 5;
-                case 'G': return 6;
-                case 'H': return 7;
-                default: return null;
-            }
-        }
-
-        public static int? ConvertPositionToLetter(int letter)
-        {
-
-            switch (letter)
-            {
-                case 0: return 'A';
-                case 1: return 'B';
-                case 2: return 'C';
-                case 3: return 'D';
-                case 4: return 'E';
-                case 5: return 'F';
-                case 6: return 'G';
-                case 7: return 'H';
-                default: return null;
             }
         }
 
