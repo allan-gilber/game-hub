@@ -79,6 +79,11 @@ namespace GameHub.Controllers
             WriteLine("Insert second player account: ");
         }
 
+        public static void WriteReturningToMainMenu()
+        {
+            WriteLine(ReturnToMainMenuMessage);
+        }
+
         // Specific Chess Game Messages
 
         public static void WriteChessWelcomeMessage()
@@ -86,15 +91,19 @@ namespace GameHub.Controllers
             WriteLine("Welcome to C# Chess 1.0!");
             WriteLine("Hope you have a good fun.");
         }
-        public static void WriteGameplayersNames(string firstPlayerName, string secondPlayerName) {
+        public static void WriteChessGameplayersNames(string firstPlayerName, string secondPlayerName) {
             WriteLine("The match will be:\n{0} (white) vs {1} (black)", firstPlayerName, secondPlayerName);
             WriteLine("Lets begin the match!");
-            ReadKey();
         }
 
         public static void WriteChooseThePieceYouWannaMoveMessage(string playerColor)
         {
             Console.WriteLine("{0} pieces round. Type the letter and the number of the piece you want to move:", playerColor);
+        }
+
+        public static void WriteChooseYourMovementMensage(string playerColor)
+        {
+            Console.WriteLine("{0} round. Type the letter and the number of the square you want to mark:", playerColor);
         }
 
         public static void WriteChooseYourMovementMessage(string pieceName, char letter, char number)
@@ -118,8 +127,43 @@ namespace GameHub.Controllers
 
         public static void WriteInvalidMovePosition()
         {
-            WriteLine("Invalid move position. Please, type a new position.");
+            WriteLine("Invalid position. Please, type a new position.");
             ReadKey();
+        }
+
+        // Specific Tic-Tac-Toe messages
+
+        public static void WriteTicTacToeWelcomeMessage()
+        {
+            WriteLine("Welcome to C# Tic-Tac-Toe 1.0!");
+            WriteLine("Hope you have a good fun.");
+        }
+
+        public static void WriteTicTacToeGameplayersNames(string firstPlayerName, string secondPlayerName)
+        {
+            WriteLine("The match will be:\n{0} (White \"X\") vs {1} (Reds \"O\")", firstPlayerName, secondPlayerName);
+            WriteLine("Lets begin the match!");
+            ReadKey();
+        }
+
+        public static void WriteTicTacToeWinMessage(string teamName, string userName)
+        {
+            WriteLine("Victory! The team of the {0} won! The user {1} won this match.", teamName, userName);
+        }
+
+        public static void WriteTicTacToePlayAgainMessage()
+        {
+            WriteLine("Do you wanna play Tic-Tac-Toe again? type: \"yes\" or \"no\"");
+        }
+
+        public static void WriteTicTacToeDrawResultMessage()
+        {
+            WriteLine("The game is a draw! Nobody wins. =/");
+        }
+
+        public static void WriteInvalidOptionForPlayAgainConfirmationMessage()
+        {
+            WriteLine("Invalid option!");
         }
     }
 }
