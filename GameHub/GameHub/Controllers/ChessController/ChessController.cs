@@ -43,7 +43,7 @@ namespace GameHub.Controllers.ChessControllers
                     string? userInput;
                     string? movePositionCode;
 
-                    BoardViewer.PrintChessBoard(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
+                    PrintChessBoard(8,8, _WhitePiecesPositions, _BlackPiecesPositions, _WhitePiecesGraveyard, _BlackPiecesGraveyard);
                     
                     WriteChooseThePieceYouWannaMoveMessage(_BlackPiecesround ? "Black" : "White");
                     userInput = ReadLine();
@@ -139,8 +139,6 @@ namespace GameHub.Controllers.ChessControllers
                 _BlackPiecesPositions[1, i] = 6;
                 _WhitePiecesPositions[6, i] = 6;
             }
-            _WhitePiecesPositions[2, 1] = 6;
-
         }
     }
 }

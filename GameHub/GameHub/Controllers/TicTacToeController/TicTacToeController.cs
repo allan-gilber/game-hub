@@ -98,6 +98,8 @@ namespace GameHub.Controllers.Tic_tac_toe
                         WriteReturningToMainMenu();
                         ReadKey();
                         _NewGameLoopController = false;
+                        _AskForNewGameLoopController = false;
+                        continue;
                     }
                     WriteInvalidOptionForPlayAgainConfirmationMessage();
                     ReadKey();

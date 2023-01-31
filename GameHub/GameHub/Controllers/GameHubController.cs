@@ -39,9 +39,7 @@ namespace GameHub.Controllers
                 SecondPlayer = GameHubController.SavedAccounts[indexOfTheAccount];
                 FirstPlayer = GameHubController.LoggedAccount;
             }
-            Clear();
-            WriteGameplayersNames(FirstPlayer!.PersonName, SecondPlayer!.PersonName);
-            ReadLine();
+            
         }
 
     }
