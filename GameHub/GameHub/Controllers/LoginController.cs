@@ -45,7 +45,7 @@ namespace GameHub.Controllers
 
         internal static  bool Login()
         {
-           /*
+           
             Console.Clear();
             Console.WriteLine("Type your login:");
             string? userInputLogin = Console.ReadLine();
@@ -64,7 +64,7 @@ namespace GameHub.Controllers
             if (findAccount.Password != userInputPassword) { Console.WriteLine(InvalidLoginMessage); Console.ReadKey(); return false; };
             
             GameHubController.LoggedAccount = findAccount;
-           */
+           
             // Test account inserting
             GameHubController.LoggedAccount = new LoginData("a","b","c");
             GameHubController.SavedAccounts.Add(new LoginData("d", "e", "f"));
