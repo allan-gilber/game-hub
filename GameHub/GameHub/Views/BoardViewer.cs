@@ -1,7 +1,6 @@
-﻿using System;
-using System.Reflection;
-using static System.Console;
+﻿using static System.Console;
 using static GameHub.Controllers.Tic_tac_toe.TicTacToeController;
+using static GameHub.Controllers.NavalBattleController.ArmadaController;
 
 namespace GameHub.Views
 {
@@ -21,6 +20,26 @@ namespace GameHub.Views
                 if (index == 1) { PrintGraveyardStatus(blackPiecesGraveyard); continue; }
                 if (index == 6) { WriteLine("  White Pieces Graveyard"); continue; }
                 if (index == 7) { PrintGraveyardStatus(whitePiecesGraveyard); PrintHorizontalLine(numberOfColumns); }
+                Write("\n");
+            }
+        }
+
+        public static void PrintBattleshipGameBoard(int numberOfRows, int numberOfColumns, int[,] firstPlayerShipsArray, int[,] secondPlayerShipsArray, bool useTheColorRed)
+        {
+            Clear();
+            PrintColumnLetters(numberOfColumns);
+            for (int index = 0; index < numberOfRows; index++)
+            {
+                PrintHorizontalLine(numberOfColumns);
+                PrintBattleshipGameVerticalLine(numberOfColumns, index, firstPlayerShipsArray, useTheColorRed);
+                Write("\n");
+            }
+
+            for (int index = 0; index < numberOfRows; index++)
+            {
+                Write("\n\n\n\n");
+                PrintHorizontalLine(numberOfColumns);
+                PrintBattleshipGameVerticalLine(numberOfColumns, index, secondPlayerShipsArray, useTheColorRed);
                 Write("\n");
             }
         }
@@ -97,15 +116,37 @@ namespace GameHub.Views
 
             ForegroundColor = ConsoleColor.White;
             int indexToRowNumberConverter = + 1;
-            Write("  {0}  |", indexToRowNumberConverter);
+            Write("  {0}  |", rowNumber + indexToRowNumberConverter);
 
             for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++)
             {
                 string[] squareFiller = CheckIfSquareHasPieceOnIt(columnIndex, rowNumber, firstPiecesArray, secondPiecesArray);
+                Write("  {0}", squareFiller);
+                ForegroundColor = ConsoleColor.White;
+                Write(" |");
+            }
+        }
+
+        private static void PrintBattleshipGameVerticalLine(int numberOfColumns, int rowNumber, int[,] playerShipsArray, bool useTheColorRed)
+        {
+
+            ForegroundColor = ConsoleColor.White;
+            int indexToRowNumberConverter = +1;
+            Write("  {0}  |", rowNumber + indexToRowNumberConverter);
+
+            for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++)
+            {
+                string squareFiller = CheckIfSquareHasShipOnIt(columnIndex, rowNumber, playerShipsArray, useTheColorRed);
                 Write(" {0}", squareFiller);
                 ForegroundColor = ConsoleColor.White;
                 Write(" |");
             }
+        }
+
+        private static string CheckIfSquareHasShipOnIt(int columnIndex, int rowNumber, int[,] playerShipsArray, bool useTheColorRed)
+        {
+            if(useTheColorRed) ForegroundColor = ConsoleColor.Red;
+            return GetArmadaCodes(playerShipsArray[columnIndex, rowNumber]);
         }
 
         private static string[] CheckIfSquareHasPieceOnIt(int columnIndex, int rowNumber,int[,] firstPiecesArray, int[,] secondPiecesArray)

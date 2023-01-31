@@ -165,5 +165,26 @@ namespace GameHub.Controllers
         {
             WriteLine("Invalid option!");
         }
+
+        // Specific Battleship Game Messages
+
+        public static void WriteBattleshipWelcomeMessage()
+        {
+            WriteLine("Welcome to C# Battleship 1.0!");
+            WriteLine("Hope you have a good fun.");
+        }
+
+        public static void WriteBattleshipGameplayersNames(string firstPlayerName, string secondPlayerName)
+        {
+            WriteLine("The match will be:\n{0} as FirstPlayer vs {1} as SecondPlayer", firstPlayerName, secondPlayerName);
+            WriteLine("Lets begin the match!");
+            ReadKey();
+        }
+
+        public static void WriteInvalidPositionTargetMessage()
+        {
+            WriteLine("Invalid position to shoot. Please, type a new position.");
+            ReadKey();
+        }
     }
 }
