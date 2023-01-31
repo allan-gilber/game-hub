@@ -31,6 +31,9 @@ namespace GameHub.Controllers.ChessControllers
             WriteChessWelcomeMessage();
             ReadKey();
             ChooseYourOpponent();
+            Clear();
+            WriteChessGameplayersNames(FirstPlayer!.PersonName, SecondPlayer!.PersonName);
+            ReadLine();
             PopulateChessBoard();
             Clear();
 

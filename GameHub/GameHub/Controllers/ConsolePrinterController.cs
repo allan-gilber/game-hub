@@ -79,6 +79,11 @@ namespace GameHub.Controllers
             WriteLine("Insert second player account: ");
         }
 
+        public static void WriteReturningToMainMenu()
+        {
+            WriteLine(ReturnToMainMenuMessage);
+        }
+
         // Specific Chess Game Messages
 
         public static void WriteChessWelcomeMessage()
@@ -86,10 +91,9 @@ namespace GameHub.Controllers
             WriteLine("Welcome to C# Chess 1.0!");
             WriteLine("Hope you have a good fun.");
         }
-        public static void WriteGameplayersNames(string firstPlayerName, string secondPlayerName) {
+        public static void WriteChessGameplayersNames(string firstPlayerName, string secondPlayerName) {
             WriteLine("The match will be:\n{0} (white) vs {1} (black)", firstPlayerName, secondPlayerName);
             WriteLine("Lets begin the match!");
-            ReadKey();
         }
 
         public static void WriteChooseThePieceYouWannaMoveMessage(string playerColor)
@@ -135,10 +139,31 @@ namespace GameHub.Controllers
             WriteLine("Hope you have a good fun.");
         }
 
-        public static void WriteTicTacToeWinMessage(string userName, string teamName)
+        public static void WriteTicTacToeGameplayersNames(string firstPlayerName, string secondPlayerName)
         {
-            WriteLine("Victory! The team of the {0} won! The user {1} won this match.", userName, teamName);
+            WriteLine("The match will be:\n{0} (White \"X\") vs {1} (Reds \"O\")", firstPlayerName, secondPlayerName);
+            WriteLine("Lets begin the match!");
+            ReadKey();
         }
 
+        public static void WriteTicTacToeWinMessage(string teamName, string userName)
+        {
+            WriteLine("Victory! The team of the {0} won! The user {1} won this match.", teamName, userName);
+        }
+
+        public static void WriteTicTacToePlayAgainMessage()
+        {
+            WriteLine("Do you wanna play Tic-Tac-Toe again? type: \"yes\" or \"no\"");
+        }
+
+        public static void WriteTicTacToeDrawResultMessage()
+        {
+            WriteLine("The game is a draw! Nobody wins. =/");
+        }
+
+        public static void WriteInvalidOptionForPlayAgainConfirmationMessage()
+        {
+            WriteLine("Invalid option!");
+        }
     }
 }

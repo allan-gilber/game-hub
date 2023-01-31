@@ -37,6 +37,7 @@ namespace GameHub.Views
                 if (rowIndex == 2) continue;
                 PrintHorizontalLine(3);
             }
+            Write("\n\n");
         }
 
         private static void PrintTicTacToeVerticalLine(int rowIndex)
@@ -50,7 +51,7 @@ namespace GameHub.Views
                 if (columnIndex == 0) Write(" ");
                 Write("  ");
 
-                string squareSymbol = GameStatus[rowIndex, columnIndex];
+                string squareSymbol = GameStatus[columnIndex, rowIndex];
                 if(squareSymbol == "O") ForegroundColor = ConsoleColor.Red;
 
                 Write("{0}", squareSymbol);
